@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import axios from "axios";
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -11,12 +12,16 @@ function App() {
   useEffect(() => {
     const fetchUsers = async () => {
       try {
-        const response = await fetch("https://randomuser.me/api/?results=10");
-        if (!response.ok) throw new Error("Failed to fetch users");
-        const data = await response.json();
+        // const response = await fetch("https://randomuser.me/api/?results=10");
+        // if (!response.ok) throw new Error("Failed to fetch users");
+        // const data = await response.json();
+        const { data } = await axios.get(
+          "https://randomuser.me/api/?results=10"
+        );
         setUsers(data.results);
       } catch (err) {
-        setError(err.message);
+        // setError(err.message);
+        setError(err.response?.data?.message || "Failed to fetch users");
       } finally {
         setLoading(false);
       }
