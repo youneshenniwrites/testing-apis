@@ -52,9 +52,11 @@ function App() {
         placeholder="Search users..."
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)}
+        tabIndex={0}
+        aria-label="Search users"
       />
       {searchDebounced !== "" && filteredUsers.length === 0 ? (
-        <p>No users found matching "{searchDebounced}".</p>
+        <p aria-live="polite">No users found matching "{searchDebounced}".</p>
       ) : (
         filteredUsers.map((user) => (
           <div key={user.login.uuid}>
